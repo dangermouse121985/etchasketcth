@@ -47,17 +47,20 @@ table {
 	border-spacing: 0;
 }
 
-
 #gridContainer {
-    height: 70vh;
-    width: 50vw;
+	width:50vw;
+	padding-bottom: 50%;
+	height:0;
+	position: relative;
+}
+
+#grid {
+	position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
     display: grid;
 }
 
 .gridCell {
     border: solid 1px black;
-}
-
-.gridCell:hover {
-    background-color: black;
 }
