@@ -1,7 +1,7 @@
 let gridContainer = document.querySelector('#grid');
 gridContainer.style.display = 'grid';
 
-let gridSize = 60;
+let gridSize = 16;
 // Create our shared stylesheet:
 const sheet = new CSSStyleSheet();
 sheet.replaceSync(
@@ -10,7 +10,7 @@ sheet.replaceSync(
 // Apply the stylesheet to a document:
 document.adoptedStyleSheets = [sheet];
 
-for (let i = 0; i <= gridSize*gridSize; i++) {
+for (let i = 0; i <= gridSize*gridSize - 1; i++) {
     let gridCell = document.createElement('div');
     gridCell.className = 'gridCell';
     gridContainer.appendChild(gridCell);
@@ -25,4 +25,10 @@ items.forEach(item => {
 
 document.querySelector('.gridCell').addEventListener('mouseover', function () {
     document.querySelector('.gridCell').style.backgroundColor = 'black';
+});
+
+document.querySelector('#clearGrid').addEventListener('click', function() {
+    for (let i=0; i < items.length; i++) {
+        items[i].style.backgroundColor ='white';
+    }
 });
