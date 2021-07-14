@@ -48,8 +48,10 @@ table {
 }
 
 #gridContainer {
-	width:50vw;
-	padding-bottom: 50%;
+	width:800px;
+	padding-bottom: 800px;
+	border: 50px solid red;
+	border-radius: 50px;
 	height:0;
 	position: relative;
 }

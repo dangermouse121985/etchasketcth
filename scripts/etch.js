@@ -1,7 +1,7 @@
 let gridContainer = document.querySelector('#grid');
 gridContainer.style.display = 'grid';
 
-let gridSize = 16;
+let gridSize = promptGridSize();
 // Create our shared stylesheet:
 const sheet = new CSSStyleSheet();
 sheet.replaceSync(
@@ -9,9 +9,10 @@ sheet.replaceSync(
 
 // Apply the stylesheet to a document:
 document.adoptedStyleSheets = [sheet];
+let gridCell;
 
 for (let i = 0; i <= gridSize*gridSize - 1; i++) {
-    let gridCell = document.createElement('div');
+    gridCell = document.createElement('div'); 
     gridCell.className = 'gridCell';
     gridContainer.appendChild(gridCell);
 }
@@ -31,4 +32,24 @@ document.querySelector('#clearGrid').addEventListener('click', function() {
     for (let i=0; i < items.length; i++) {
         items[i].style.backgroundColor ='white';
     }
+    gridCell.remove();
+    gridSize = promptGridSize();
+    sheet.replaceSync(
+        '#grid {grid-template-columns: repeat(' + gridSize + ', 1fr);grid-template-rows: repeat(' + gridSize + ', 1fr);}');
+    
+    for (let i = 0; i <= gridSize*gridSize - 1; i++) {
+        gridCell = document.createElement('div');
+        gridCell.className = 'gridCell';
+        gridContainer.appendChild(gridCell);
+    }
 });
+
+function promptGridSize () {
+    let size = prompt('How big do you want the grid (10-100)?');
+    if (size >= 10 || size <= 100) {
+        return size;
+    }
+    else{
+        size = prompt('How big do you want the grid (10-100)?');
+    }
+}
