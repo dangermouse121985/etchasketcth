@@ -29,9 +29,9 @@ function makeGrid() {
     let items = document.querySelectorAll('.gridCell');
     items.forEach(item => {
         item.addEventListener('mouseover', () => {
-            //item.style.backgroundColor = '#' + Math.floor(Math.random()*16777215).toString(16);;
-            console.log(item.style.backgroundColor)
-            item.style.background = 'hsl(0, 0%, 0%, .1)';
+            item.style.backgroundColor = '#' + Math.floor(Math.random()*16777215).toString(16);;
+            console.log(item.style.backgroundColor);
+            //item.setAttribute('style', 'filter: grayscale(100%)');
         });
     });
 }
