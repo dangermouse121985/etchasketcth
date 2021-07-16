@@ -27,6 +27,17 @@ function makeGrid() {
 
     //Change color of cell to black with mouseover event
     let items = document.querySelectorAll('.gridCell');
+
+    let cellBlack = document.getElementById('cellBlack');
+    cellBlack.addEventListener('click', () => {
+        items.forEach(item => {
+            item.addEventListener('mouseover', () => {
+                //Change cells to black
+                item.style.backgroundColor = "black";
+            });
+        });
+    });
+
     items.forEach(item => {
         item.addEventListener('mouseover', () => {
             //Change cells to black
@@ -36,8 +47,8 @@ function makeGrid() {
             //item.style.backgroundColor = '#' + Math.floor(Math.random()*16777215).toString(16);;
 
             //Gradually change cells from white to black by 10% with each mouseover
-            item.style.backgroundColor = "black";
-            item.style.opacity = (parseFloat(item.style.opacity) || 0) + 0.1;
+            //item.style.backgroundColor = "black";
+            //item.style.opacity = (parseFloat(item.style.opacity) || 0) + 0.1;
         });
     });
 }
