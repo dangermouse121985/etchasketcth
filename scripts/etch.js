@@ -10,7 +10,7 @@ function makeGrid() {
     gridContainer.appendChild(grid);
 
     let gridSize = promptGridSize();
-    // Create our shared stylesheet:
+    
     const sheet = new CSSStyleSheet();
     sheet.replaceSync(
             '#grid {grid-template-columns: repeat(' + gridSize + ', 1fr);grid-template-rows: repeat(' + gridSize + ', 1fr);}');
@@ -25,29 +25,23 @@ function makeGrid() {
         grid.appendChild(gridCell);
     }
 
-    //Change color of cell to black with mouseover event
     let items = document.querySelectorAll('.gridCell');
-
-    let cellBlack = document.getElementById('cellBlack');
-    let cellRainbow = document.getElementById('cellRainbow');
-    let cellGradient = document.getElementById('cellGradient');
     let cellColor;
     
-
-
-
-    cellBlack.addEventListener('click', () => {
+    //Set cellColor depending on button click
+    document.getElementById('cellBlack').addEventListener('click', () => {
         cellColor = 'black';
     });
 
-    cellGradient.addEventListener('click', () => {
+    document.getElementById('cellGradient').addEventListener('click', () => {
         cellColor = 'gradient';
     });
 
-    cellRainbow.addEventListener('click', () => {
+    document.getElementById('cellRainbow').addEventListener('click', () => {
         cellColor = 'rainbow';
     })
 
+    //Based on cellColor value color cells on mouseover
     let gradientCount;
     items.forEach(item => {
         item.addEventListener('mouseover', () => {
@@ -76,6 +70,7 @@ function makeGrid() {
     });  
 }
 
+//Clear Grid of all colors when button is clicked, Make new grid
 document.querySelector('#clearGrid').addEventListener('click', function() {
     grid.remove();
     makeGrid();
