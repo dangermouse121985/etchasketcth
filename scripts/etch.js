@@ -29,30 +29,52 @@ function makeGrid() {
     let items = document.querySelectorAll('.gridCell');
 
     let cellBlack = document.getElementById('cellBlack');
+    let cellRainbow = document.getElementById('cellRainbow');
+    let cellGradient = document.getElementById('cellGradient');
+    let cellColor;
+    
+
+
+
     cellBlack.addEventListener('click', () => {
-        items.forEach(item => {
-            item.addEventListener('mouseover', () => {
-                //Change cells to black
-                item.style.backgroundColor = "black";
-            });
-        });
+        cellColor = 'black';
     });
 
+    cellGradient.addEventListener('click', () => {
+        cellColor = 'gradient';
+    });
+
+    cellRainbow.addEventListener('click', () => {
+        cellColor = 'rainbow';
+    })
+
+    let gradientCount;
     items.forEach(item => {
         item.addEventListener('mouseover', () => {
-            //Change cells to black
-            //item.style.backgroundColor = "black";
+            if (cellColor === 'rainbow') {
+                item.style.opacity = 1;
+                item.style.backgroundColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+                item.style.className = 'rainbow';
+            }
+            else if (cellColor === 'black') {
+                item.style.backgroundColor = "black";
+                item.style.opacity = 1;
+                item.style.className = 'black';
+            }
+            else if (cellColor === 'gradient') {
+                if (item.style.opacity == parseFloat(1) && item.style.className !== 'gradient') {
+                    item.style.opacity = 0;
+                }
+                item.style.backgroundColor = "black";
+                item.style.opacity = (parseFloat(item.style.opacity) || 0) + 0.1;
+                if (item.style.opacity == 1) {
+                    item.style.className = 'gradient';
+                }
+            }
 
-            //Change cells to random color
-            //item.style.backgroundColor = '#' + Math.floor(Math.random()*16777215).toString(16);;
-
-            //Gradually change cells from white to black by 10% with each mouseover
-            //item.style.backgroundColor = "black";
-            //item.style.opacity = (parseFloat(item.style.opacity) || 0) + 0.1;
         });
-    });
+    });  
 }
-
 
 document.querySelector('#clearGrid').addEventListener('click', function() {
     grid.remove();
