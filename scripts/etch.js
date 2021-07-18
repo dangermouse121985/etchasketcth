@@ -1,15 +1,32 @@
 let gridContainer = document.querySelector('#gridContainer');
 let items;
 let gridCell;
+
+var slider = document.getElementById("myRange");
+var output = document.getElementById("demo");
+output.innerHTML = slider.value; // Display the default slider value
+
+// Update the current slider value (each time you drag the slider handle)
+slider.oninput = function() {
+  output.innerHTML = this.value;
+}
+
 makeGrid();
 
+
+function randomColor () {
+    cellRaibow.style.backgroundColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+}
+
+
 function makeGrid() {
+    
     let grid = document.createElement('div');
     grid.id = 'grid';
     grid.style.display = 'grid';
     gridContainer.appendChild(grid);
 
-    let gridSize = promptGridSize();
+    let gridSize = slider.value  
     
     const sheet = new CSSStyleSheet();
     sheet.replaceSync(
@@ -75,11 +92,3 @@ document.querySelector('#clearGrid').addEventListener('click', function() {
     grid.remove();
     makeGrid();
 });
-
-function promptGridSize () {
-    let size = prompt('How big do you want the grid (10-100)?');
-    while (size < 10 || size > 100) {
-        size = prompt('I\'m sorry that number is not valid. How big do you want the grid (10-100)?');
-    }
-     return size;   
-}

@@ -6,20 +6,30 @@
         <link rel="stylesheet" href="styles/styles.css">
     </head>
     <body>
-        <button id="clearGrid">
-            Clear
-        </button>
-        <button id='cellBlack'>
-            Black
-        </button>
-        <button id='cellRainbow'>
-            Rainbow
-        </button>
-        <button id='cellGradient'>
-            Gradient
-        </button>
-        <div id="gridContainer">
+        <div class="slidecontainer">
+            <input type="range" min="10" max="100" value="50" class="slider" id="myRange">
+          </div>
+          <div id="demo"></div>
+
+        <div id="gridWrapper">
+            <div id='gameButtons'>
+                <button id="clearGrid">
+                    Change # of Cells
+                </button>
+                <button id='cellBlack'>
+                    Black
+                </button>
+                <button id='cellRainbow'>
+                    Rainbow
+                </button>
+                <button id='cellGradient'>
+                    Gradient
+                </button>
+            </div>
+            <div id="gridContainer">
+            </div>
         </div>
+        
         
 
         <script type="text/javascript" src="scripts/etch.js"></script>
