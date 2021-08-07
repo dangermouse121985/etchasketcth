@@ -2,14 +2,8 @@ let gridContainer = document.querySelector('#gridContainer');
 let items;
 let gridCell;
 
-var slider = document.getElementById("myRange");
-var output = document.getElementById("demo");
-output.innerHTML = slider.value; // Display the default slider value
 
-// Update the current slider value (each time you drag the slider handle)
-slider.oninput = function() {
-  output.innerHTML = this.value;
-}
+
 
 makeGrid();
 
@@ -26,7 +20,16 @@ function makeGrid() {
     grid.style.display = 'grid';
     gridContainer.appendChild(grid);
 
-    let gridSize = slider.value  
+    let gridSize;
+
+    let checkGridSize = document.querySelector('#gridLength').value;
+    if (checkGridSize >= 10 && checkGridSize <= 100) {
+        gridSize = document.querySelector('#gridLength').value;
+        console.log('test');
+    }
+    
+    console.log('test2');
+     
     
     const sheet = new CSSStyleSheet();
     sheet.replaceSync(
@@ -43,19 +46,31 @@ function makeGrid() {
     }
 
     let items = document.querySelectorAll('.gridCell');
-    let cellColor;
-    
+    let cellColor = 'black';
+    let blackButton = document.getElementById('cellBlack');
+    let rainbowButton = document.getElementById('cellRainbow');
+    let gradientButton = document.getElementById('cellGradient');
     //Set cellColor depending on button click
-    document.getElementById('cellBlack').addEventListener('click', () => {
+    blackButton.addEventListener('click', () => {
         cellColor = 'black';
     });
 
-    document.getElementById('cellGradient').addEventListener('click', () => {
+    gradientButton.addEventListener('click', () => {
         cellColor = 'gradient';
+        
+        if (getComputedStyle(gradientButton).opacity === '1'){
+            gradientButton.style.background = 'rgb(207, 207, 207)';
+            console.log('test');
+            gradientButton.style.opacity = '0.4'
+        }
+        else {
+            gradientButton.style.background = colorGradient(gradientButton);
+        }
     });
 
-    document.getElementById('cellRainbow').addEventListener('click', () => {
+    rainbowButton.addEventListener('click', () => {
         cellColor = 'rainbow';
+        rainbowButton.style.background = colorRainbow(rainbowButton);
     })
 
     //Based on cellColor value color cells on mouseover
@@ -63,24 +78,13 @@ function makeGrid() {
     items.forEach(item => {
         item.addEventListener('mouseover', () => {
             if (cellColor === 'rainbow') {
-                item.style.opacity = 1;
-                item.style.backgroundColor = '#' + Math.floor(Math.random()*16777215).toString(16);
-                item.style.className = 'rainbow';
+                colorRainbow(item);
             }
             else if (cellColor === 'black') {
-                item.style.backgroundColor = "black";
-                item.style.opacity = 1;
-                item.style.className = 'black';
+                colorBlack(item);
             }
             else if (cellColor === 'gradient') {
-                if (item.style.opacity == parseFloat(1) && item.style.className !== 'gradient') {
-                    item.style.opacity = 0;
-                }
-                item.style.backgroundColor = "black";
-                item.style.opacity = (parseFloat(item.style.opacity) || 0) + 0.1;
-                if (item.style.opacity == 1) {
-                    item.style.className = 'gradient';
-                }
+                colorGradient(item);
             }
 
         });
@@ -88,7 +92,41 @@ function makeGrid() {
 }
 
 //Clear Grid of all colors when button is clicked, Make new grid
-document.querySelector('#clearGrid').addEventListener('click', function() {
+document.querySelector('#clearGrid').addEventListener('click', function validateGrid() {
     grid.remove();
-    makeGrid();
+    checkGridSize = document.querySelector('#gridLength').value;
+    if (checkGridSize < 10 || checkGridSize > 100) {
+        alert('Grid lenght must be between 10 and 100. Please enter a different number!');
+        console.log(checkGridSize);
+        makeGrid();
+    }
+    else {
+        let gridSize = document.querySelector('#gridLength').value;
+        makeGrid();
+    }
+    
 });
+
+function colorRainbow(item){
+    item.style.opacity = 1;
+    item.style.backgroundColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+    item.style.className = 'rainbow';
+    return;
+}
+
+function colorBlack(item){
+    item.style.backgroundColor = "black";
+    item.style.opacity = 1;
+    item.style.className = 'black';
+}
+
+function colorGradient(item){
+    if (item.style.opacity == parseFloat(1) && item.style.className !== 'gradient') {
+        item.style.opacity = 0;
+    }
+    item.style.backgroundColor = "black";
+    item.style.opacity = (parseFloat(item.style.opacity) || 0) + 0.1;
+    if (item.style.opacity == 1) {
+        item.style.className = 'gradient';
+    }
+}
