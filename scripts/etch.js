@@ -25,10 +25,7 @@ function makeGrid() {
     let checkGridSize = document.querySelector('#gridLength').value;
     if (checkGridSize >= 10 && checkGridSize <= 100) {
         gridSize = document.querySelector('#gridLength').value;
-        console.log('test');
     }
-    
-    console.log('test2');
      
     
     const sheet = new CSSStyleSheet();
@@ -60,7 +57,6 @@ function makeGrid() {
         
         if (getComputedStyle(gradientButton).opacity === '1'){
             gradientButton.style.background = 'rgb(207, 207, 207)';
-            console.log('test');
             gradientButton.style.opacity = '0.4'
         }
         else {
@@ -97,7 +93,6 @@ document.querySelector('#clearGrid').addEventListener('click', function validate
     checkGridSize = document.querySelector('#gridLength').value;
     if (checkGridSize < 10 || checkGridSize > 100) {
         alert('Grid lenght must be between 10 and 100. Please enter a different number!');
-        console.log(checkGridSize);
         makeGrid();
     }
     else {
